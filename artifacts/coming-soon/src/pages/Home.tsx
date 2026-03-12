@@ -39,8 +39,11 @@ export default function Home() {
           <div className="bg-primary/10 p-2.5 rounded-xl text-primary backdrop-blur-md border border-primary/10">
             <Trees className="w-6 h-6" />
           </div>
-          <span className="font-display font-bold text-xl md:text-2xl text-foreground tracking-tight drop-shadow-sm">
+          <span className="font-display font-bold text-xl md:text-2xl text-foreground tracking-tight drop-shadow-sm truncate hidden sm:inline-block">
             Family Adventures Northwest
+          </span>
+          <span className="font-display font-bold text-xl text-foreground tracking-tight drop-shadow-sm inline-block sm:hidden">
+            Family Adventures NW
           </span>
         </motion.div>
         
@@ -66,7 +69,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img 
             src={heroImageUrl} 
-            alt="Misty Pacific Northwest Mountains" 
+            alt="Misty Pacific Northwest mountain landscape with soft light" 
             className="w-full h-full object-cover object-center animate-in fade-in duration-1000 zoom-in-105"
           />
           {/* Gradients to blend image softly into background */}
@@ -80,14 +83,14 @@ export default function Home() {
           animate="visible"
           className="relative z-10 max-w-4xl mx-auto text-center mt-12"
         >
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 backdrop-blur-md border border-secondary-foreground/10 text-secondary-foreground mb-8 shadow-sm">
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 backdrop-blur-md border border-secondary-foreground/10 text-secondary-foreground mb-8 shadow-sm animate-gentle-pulse">
             <Compass className="w-4 h-4" />
-            <span className="text-sm font-semibold tracking-wide uppercase">Coming Soon</span>
+            <span className="text-sm font-semibold tracking-wide uppercase font-sans">Coming Soon</span>
           </motion.div>
           
           <motion.h1 
             variants={fadeUp}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground leading-[1.1] md:leading-[1.05] tracking-tight mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold text-foreground leading-[1.1] md:leading-[1.05] tracking-tight mb-6"
           >
             Empowering Families Through <span className="text-primary relative inline-block">
               Everyday Adventures
@@ -99,7 +102,7 @@ export default function Home() {
           
           <motion.p 
             variants={fadeUp}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-10"
+            className="text-lg md:text-xl text-muted-foreground max-w-prose mx-auto leading-relaxed mb-10 font-sans"
           >
             Something beautiful is on the way. We are getting ready to launch our full platform to connect, empower, and support immigrant families in the Pacific Northwest.
           </motion.p>
@@ -118,7 +121,7 @@ export default function Home() {
       </section>
 
       {/* MISSION STATEMENT SECTION */}
-      <section className="relative z-10 py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-background">
+      <section className="relative z-10 py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-background">
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -136,7 +139,7 @@ export default function Home() {
                 <HeartHandshake className="w-8 h-8 text-primary" />
               </div>
               
-              <h2 className="text-sm font-bold tracking-widest uppercase text-accent mb-6">Our Mission</h2>
+              <h2 className="text-sm font-bold font-display tracking-widest uppercase text-accent mb-6">Our Mission</h2>
               
               <blockquote className="text-2xl md:text-3xl lg:text-4xl font-display font-medium leading-tight text-foreground text-center">
                 “Family Adventures Northwest empowers immigrant families through meaningful, multi-generational outdoor and experiential learning activities, fostering character education, servant leadership, and connection with local communities. In collaboration with intersectional partners, we create culturally inclusive programs that nurture the physical, relational, emotional, and spiritual needs of every family.”
@@ -147,7 +150,7 @@ export default function Home() {
       </section>
 
       {/* PHOTO GALLERY */}
-      <section className="relative z-10 py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-muted/20">
+      <section className="relative z-10 py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-muted/20">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -156,7 +159,7 @@ export default function Home() {
           className="max-w-6xl mx-auto"
         >
           <motion.div variants={fadeUp} className="text-center mb-14">
-            <h2 className="text-sm font-bold tracking-widest uppercase text-accent mb-4">Adventures Await</h2>
+            <h2 className="text-sm font-bold font-display tracking-widest uppercase text-accent mb-4">Adventures Await</h2>
             <p className="text-3xl md:text-4xl font-display font-bold text-foreground">
               Life is better outdoors, together.
             </p>
@@ -166,33 +169,47 @@ export default function Home() {
             {/* Top row: 2 large activity photos side by side */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               {galleryImages.slice(0, 2).map((img, i) => (
-                <div key={i} className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group">
+                <motion.div 
+                  key={i} 
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: i * 0.1 } }
+                  }}
+                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group"
+                >
                   <img
                     src={img.src}
                     alt={img.alt}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
+                </motion.div>
               ))}
             </div>
             {/* Bottom row: 3 landscape photos */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {galleryImages.slice(2).map((img, i) => (
-                <div key={i} className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group">
+                <motion.div 
+                  key={i + 2} 
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: (i + 2) * 0.1 } }
+                  }}
+                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group"
+                >
                   <img
                     src={img.src}
                     alt={img.alt}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
 
           <motion.div variants={fadeUp} className="mt-10 text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-card border border-border shadow-sm text-sm text-muted-foreground">
+            <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-card border border-border shadow-sm text-sm text-muted-foreground font-sans">
               <ImageIcon className="w-4 h-4 text-primary shrink-0" />
               <span>Want to share your own photos? Send them to <a href="mailto:familyadventuresnw@gmail.com" className="text-primary font-medium hover:underline">familyadventuresnw@gmail.com</a> and we'll feature them here!</span>
             </div>
@@ -201,7 +218,7 @@ export default function Home() {
       </section>
 
       {/* COMING SOON / STAY CONNECTED */}
-      <section className="relative z-10 py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 border-t border-border/50">
+      <section className="relative z-10 py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-muted/30 border-t border-border/50">
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -214,12 +231,12 @@ export default function Home() {
             <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-6">
               Join us on this journey.
             </h2>
-            <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
+            <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto font-sans">
               Our full website is currently under construction. We'd love for you to stay connected and be the first to know when we launch our new programs.
             </p>
           </motion.div>
           
-          <motion.div variants={fadeUp} className="flex flex-col items-center gap-4">
+          <motion.div variants={fadeUp} className="flex flex-col items-center gap-4 w-full">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
               <a 
                 href="mailto:familyadventuresnw@gmail.com"
@@ -239,9 +256,9 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="flex items-start gap-3 px-6 py-4 rounded-xl bg-card border-2 border-border shadow-sm text-muted-foreground">
-              <MapPin className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-              <div className="text-left">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto px-6 py-4 rounded-xl bg-card border-2 border-border shadow-sm text-muted-foreground mt-4">
+              <MapPin className="w-5 h-5 text-primary shrink-0" />
+              <div className="text-left font-sans">
                 <p className="font-medium text-foreground text-sm">Our Location</p>
                 <p className="text-sm">6328 180th St SW, Lynnwood, WA 98037</p>
               </div>
