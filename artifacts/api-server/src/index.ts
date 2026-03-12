@@ -1,6 +1,6 @@
 import app from "./app";
 
-const rawPort = process.env["PORT"];
+const rawPort = process.env["PORT"] ?? "5173";
 
 if (!rawPort) {
   throw new Error(
@@ -8,7 +8,7 @@ if (!rawPort) {
   );
 }
 
-const port = Number(rawPort);
+const PORT = process.env.PORT ?? '5173';
 
 if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
