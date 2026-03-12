@@ -104,7 +104,7 @@ export default function Home() {
             variants={fadeUp}
             className="text-lg md:text-xl text-muted-foreground max-w-prose mx-auto leading-relaxed mb-10 font-sans"
           >
-            Something beautiful is on the way. We are getting ready to launch our full platform to connect, empower, and support immigrant families in the Pacific Northwest.
+            Something beautiful is on the way. We are getting ready to launch our full list of programs to connect and empower immigrant families in the Pacific Northwest.
           </motion.p>
           
           <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-4">
