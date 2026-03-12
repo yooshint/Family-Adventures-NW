@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://a02a10bf-0567-4d63-93fa-cb5a9072b4fd-00-1wghtd6z7e4gn.janeway.replit.dev/sitemap.xml
