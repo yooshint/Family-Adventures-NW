@@ -12,7 +12,7 @@ if (!rawPort) {
   );
 }
 
-const port = Number(rawPort);
+const PORT = process.env.PORT ?? '5173'; // or use parseInt(process.env.PORT, 10) if you need a number
 
 if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
