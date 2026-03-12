@@ -4,9 +4,11 @@ import { Mountain, Mail, Instagram, Trees, Compass, ArrowRight, HeartHandshake, 
 export default function Home() {
   const heroImageUrl = `${import.meta.env.BASE_URL}images/hero-bg.png`;
   const galleryImages = [
-    { src: `${import.meta.env.BASE_URL}images/gallery-1.png`, alt: "Family hiking in Pacific Northwest forest" },
-    { src: `${import.meta.env.BASE_URL}images/gallery-2.png`, alt: "Families gathered around a campfire" },
-    { src: `${import.meta.env.BASE_URL}images/gallery-3.png`, alt: "Exploring a Washington shoreline" },
+    { src: `${import.meta.env.BASE_URL}images/photo-jingoo.jpg`, alt: "A child hanging fearlessly over a creek on a rope traverse" },
+    { src: `${import.meta.env.BASE_URL}images/photo-sean.jpg`, alt: "A child swinging over a creek with family cheering from the bank" },
+    { src: `${import.meta.env.BASE_URL}images/photo-lake.jpg`, alt: "Stunning alpine lake with driftwood and mountain cliffs in Washington" },
+    { src: `${import.meta.env.BASE_URL}images/photo-mountain.jpg`, alt: "Hiker on a rocky ridge with dramatic Pacific Northwest mountain peaks" },
+    { src: `${import.meta.env.BASE_URL}images/photo-sunset.jpg`, alt: "Serene sunset reflection of evergreens on a calm alpine lake" },
   ];
 
   // Animation variants
@@ -160,17 +162,33 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
-            {galleryImages.map((img, i) => (
-              <div key={i} className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group">
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-            ))}
+          <motion.div variants={fadeUp} className="flex flex-col gap-4 md:gap-6">
+            {/* Top row: 2 large activity photos side by side */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+              {galleryImages.slice(0, 2).map((img, i) => (
+                <div key={i} className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group">
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              ))}
+            </div>
+            {/* Bottom row: 3 landscape photos */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+              {galleryImages.slice(2).map((img, i) => (
+                <div key={i} className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group">
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div variants={fadeUp} className="mt-10 text-center">
