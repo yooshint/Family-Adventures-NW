@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mountain, Mail, Instagram, Trees, Compass, ArrowRight, HeartHandshake, MapPin, ImageIcon } from "lucide-react";
+import { Mountain, Mail, Trees, Compass, ArrowRight, HeartHandshake, MapPin } from "lucide-react";
 
 export default function Home() {
   const heroImageUrl = `${import.meta.env.BASE_URL}images/hero-bg.png`;
@@ -208,12 +208,6 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="mt-10 text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-card border border-border shadow-sm text-sm text-muted-foreground font-sans">
-              <ImageIcon className="w-4 h-4 text-primary shrink-0" />
-              <span>Want to share your own photos? Send them to <a href="mailto:familyadventuresnw@gmail.com" className="text-primary font-medium hover:underline">familyadventuresnw@gmail.com</a> and we'll feature them here!</span>
-            </div>
-          </motion.div>
         </motion.div>
       </section>
 
@@ -244,15 +238,6 @@ export default function Home() {
               >
                 <Mail className="w-5 h-5 text-primary" />
                 <span>familyadventuresnw@gmail.com</span>
-              </a>
-              
-              <a 
-                href="#"
-                onClick={(e) => e.preventDefault()}
-                className="flex items-center justify-center w-full sm:w-auto p-4 rounded-xl font-semibold bg-card text-foreground border-2 border-border shadow-sm hover:border-accent/30 hover:bg-accent/5 hover:-translate-y-1 transition-all duration-300 group"
-                title="Instagram (Coming Soon)"
-              >
-                <Instagram className="w-6 h-6 text-muted-foreground group-hover:text-accent transition-colors" />
               </a>
             </div>
 
