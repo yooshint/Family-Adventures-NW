@@ -1,8 +1,13 @@
 import { motion } from "framer-motion";
-import { Mountain, Mail, Instagram, Trees, Compass, ArrowRight, HeartHandshake } from "lucide-react";
+import { Mountain, Mail, Instagram, Trees, Compass, ArrowRight, HeartHandshake, MapPin, ImageIcon } from "lucide-react";
 
 export default function Home() {
   const heroImageUrl = `${import.meta.env.BASE_URL}images/hero-bg.png`;
+  const galleryImages = [
+    { src: `${import.meta.env.BASE_URL}images/gallery-1.png`, alt: "Family hiking in Pacific Northwest forest" },
+    { src: `${import.meta.env.BASE_URL}images/gallery-2.png`, alt: "Families gathered around a campfire" },
+    { src: `${import.meta.env.BASE_URL}images/gallery-3.png`, alt: "Exploring a Washington shoreline" },
+  ];
 
   // Animation variants
   const fadeUp = {
@@ -139,6 +144,44 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* PHOTO GALLERY */}
+      <section className="relative z-10 py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-muted/20">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="max-w-6xl mx-auto"
+        >
+          <motion.div variants={fadeUp} className="text-center mb-14">
+            <h2 className="text-sm font-bold tracking-widest uppercase text-accent mb-4">Adventures Await</h2>
+            <p className="text-3xl md:text-4xl font-display font-bold text-foreground">
+              Life is better outdoors, together.
+            </p>
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+            {galleryImages.map((img, i) => (
+              <div key={i} className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group">
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            ))}
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="mt-10 text-center">
+            <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-card border border-border shadow-sm text-sm text-muted-foreground">
+              <ImageIcon className="w-4 h-4 text-primary shrink-0" />
+              <span>Want to share your own photos? Send them to <a href="mailto:familyadventuresnw@gmail.com" className="text-primary font-medium hover:underline">familyadventuresnw@gmail.com</a> and we'll feature them here!</span>
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
       {/* COMING SOON / STAY CONNECTED */}
       <section className="relative z-10 py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 border-t border-border/50">
         <motion.div 
@@ -158,23 +201,33 @@ export default function Home() {
             </p>
           </motion.div>
           
-          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a 
-              href="mailto:familyadventuresnw@gmail.com"
-              className="flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-xl font-semibold bg-card text-foreground border-2 border-border shadow-sm hover:border-primary/30 hover:bg-primary/5 hover:-translate-y-1 transition-all duration-300"
-            >
-              <Mail className="w-5 h-5 text-primary" />
-              <span>familyadventuresnw@gmail.com</span>
-            </a>
-            
-            <a 
-              href="#"
-              onClick={(e) => e.preventDefault()}
-              className="flex items-center justify-center w-full sm:w-auto p-4 rounded-xl font-semibold bg-card text-foreground border-2 border-border shadow-sm hover:border-accent/30 hover:bg-accent/5 hover:-translate-y-1 transition-all duration-300 group"
-              title="Instagram (Coming Soon)"
-            >
-              <Instagram className="w-6 h-6 text-muted-foreground group-hover:text-accent transition-colors" />
-            </a>
+          <motion.div variants={fadeUp} className="flex flex-col items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+              <a 
+                href="mailto:familyadventuresnw@gmail.com"
+                className="flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-xl font-semibold bg-card text-foreground border-2 border-border shadow-sm hover:border-primary/30 hover:bg-primary/5 hover:-translate-y-1 transition-all duration-300"
+              >
+                <Mail className="w-5 h-5 text-primary" />
+                <span>familyadventuresnw@gmail.com</span>
+              </a>
+              
+              <a 
+                href="#"
+                onClick={(e) => e.preventDefault()}
+                className="flex items-center justify-center w-full sm:w-auto p-4 rounded-xl font-semibold bg-card text-foreground border-2 border-border shadow-sm hover:border-accent/30 hover:bg-accent/5 hover:-translate-y-1 transition-all duration-300 group"
+                title="Instagram (Coming Soon)"
+              >
+                <Instagram className="w-6 h-6 text-muted-foreground group-hover:text-accent transition-colors" />
+              </a>
+            </div>
+
+            <div className="flex items-start gap-3 px-6 py-4 rounded-xl bg-card border-2 border-border shadow-sm text-muted-foreground">
+              <MapPin className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+              <div className="text-left">
+                <p className="font-medium text-foreground text-sm">Our Location</p>
+                <p className="text-sm">6328 180th St SW, Lynnwood, WA 98037</p>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       </section>
