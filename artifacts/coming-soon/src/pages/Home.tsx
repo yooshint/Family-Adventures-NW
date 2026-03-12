@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mountain, Mail, Trees, Compass, ArrowRight, HeartHandshake, MapPin } from "lucide-react";
+import { Mountain, Mail, Trees, Compass, ArrowRight, HeartHandshake, MapPin, Backpack, Users } from "lucide-react";
 
 export default function Home() {
   const heroImageUrl = `${import.meta.env.BASE_URL}images/hero-bg.png`;
