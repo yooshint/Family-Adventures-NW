@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Family Adventures Northwest"
+version = "1.0.0"
+id = "artifacts/coming-soon"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 19580
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/coming-soon run dev"
+
+[services.env]
+PORT = "19580"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/coming-soon", "run", "build"]
+publicDir = "artifacts/coming-soon/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"

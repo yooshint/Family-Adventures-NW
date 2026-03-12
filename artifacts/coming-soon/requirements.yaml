@@ -1,0 +1,11 @@
+packages:
+  "framer-motion": "For smooth scroll and entry animations"
+  "lucide-react": "For beautiful consistent icons"
+
+images:
+  - path: "artifacts/coming-soon/public/images/hero-bg.png"
+    description: "Subtle, minimalist vector illustration of Pacific Northwest misty mountains and pine forests, soft sage greens and muted sky blues, peaceful warm nature vibe, plenty of negative space"
+    aspect_ratio: "16:9"
+
+notes:
+  - Single page "Coming Soon" site, no backend APIs required.
