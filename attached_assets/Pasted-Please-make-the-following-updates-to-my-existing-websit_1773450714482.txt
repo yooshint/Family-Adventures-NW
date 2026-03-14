@@ -1,0 +1,47 @@
+Please make the following updates to my existing website for Family Adventures NW, copying the current color scheme and font styles throughout. Ensure all design choices are WCAG accessibility compliant (sufficient color contrast, alt text on images, keyboard-navigable elements).
+
+1. Sticky Transparent Navigation Bar
+Add a navigation bar that sticks to the top of the page as users scroll. It should be fully transparent (overlaying the page content) and include links to the following 4 pages only: Home, About Us, Programs, and Sponsors. Ensure nav link text has sufficient contrast against both light and dark backgrounds since it is transparent. Do not include a Contact Us link.
+
+2. About Us Page
+Create an 'About Us' page with:
+
+A mission statement section at the top displaying this text exactly: "Family Adventures Northwest empowers immigrant families through meaningful, multi-generational outdoor and experiential learning activities, fostering character education, servant leadership, and connection with local communities. In collaboration with intersectional partners, we create culturally inclusive programs that nurture the physical, relational, emotional, and spiritual needs of every family."
+
+A 'Meet Our Board' section below with a responsive grid layout showing 6 board member cards
+
+Each card should include: a circular placeholder profile image with appropriate alt text, a placeholder name (e.g. "Board Member Name"), and a placeholder title (e.g. "Board Member Title")
+
+Style the cards consistently with the existing site design
+
+3. Programs Page
+Create a 'Programs' page with:
+
+A section at the top titled 'Why Outdoor Adventure?' with a short paragraph placeholder explaining the value of outdoor adventure and experiential learning for immigrant and multi-generational families
+
+Below that, a styled vertical list of program offerings, each with a short one-line placeholder description, including:
+
+Hiking
+
+Camping
+
+Orienteering
+
+Ropes Courses
+
+Archery
+
+Horseback Riding
+
+A 'Coming Soon — More Programs & Initiatives!' callout notice at the bottom of the list
+
+4. Sponsors Page
+Create a 'Sponsors' page with:
+
+Two clearly labeled sections: 'Grants' and 'Partners'
+
+In each section, include a centered responsive grid of at least 3 rectangular logo placeholder boxes, labeled 'Grant Logo' or 'Partner Logo' respectively
+
+Keep the layout clean, centered, and consistent with the existing site design
+
+Match all fonts, button styles, border radius, and color tokens from the existing site. Do not create a Contact Us page."
