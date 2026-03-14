@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mountain, Mail, Trees, Compass, ArrowRight, HeartHandshake, MapPin, Backpack, Users } from "lucide-react";
+import { Mountain, Mail, Trees, Compass, ArrowRight, MapPin, Backpack, Users } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Home() {
@@ -10,6 +10,9 @@ export default function Home() {
     { src: `${import.meta.env.BASE_URL}images/photo-lake.jpg`, alt: "Stunning alpine lake with driftwood and mountain cliffs in Washington" },
     { src: `${import.meta.env.BASE_URL}images/photo-mountain.jpg`, alt: "Hiker on a rocky ridge with dramatic Pacific Northwest mountain peaks" },
     { src: `${import.meta.env.BASE_URL}images/photo-sunset.jpg`, alt: "Serene sunset reflection of evergreens on a calm alpine lake" },
+    { src: `${import.meta.env.BASE_URL}images/photo-rope-climb.jpg`, alt: "A child joyfully climbing a rope in a Pacific Northwest forest" },
+    { src: `${import.meta.env.BASE_URL}images/photo-tree-planting-1.jpg`, alt: "A father and two children planting a young tree together in the forest" },
+    { src: `${import.meta.env.BASE_URL}images/photo-tree-planting-2.jpg`, alt: "A family of five volunteers smiling while planting a tree outdoors" },
   ];
 
   const fadeUp = {
@@ -30,7 +33,6 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <section className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img
             src={heroImageUrl}
@@ -85,36 +87,89 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* MISSION STATEMENT SECTION */}
-      <section className="relative z-10 py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-background">
+      {/* PHOTO GALLERY — Adventures Await */}
+      <section className="relative z-10 py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-muted/20">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
-          className="max-w-5xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
-          <div className="relative bg-card rounded-3xl p-8 md:p-16 shadow-xl shadow-black/5 border border-border/50 overflow-hidden">
-            <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-accent/5 rounded-full blur-3xl"></div>
+          <motion.div variants={fadeUp} className="text-center mb-14">
+            <h2 className="text-sm font-bold font-display tracking-widest uppercase text-accent mb-4">Adventures Await</h2>
+            <p className="text-3xl md:text-4xl font-display font-bold text-foreground">
+              Life is better outdoors, together.
+            </p>
+          </motion.div>
 
-            <motion.div variants={fadeUp} className="relative z-10 flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mb-8 rotate-3">
-                <HeartHandshake className="w-8 h-8 text-primary" />
-              </div>
-
-              <h2 className="text-sm font-bold font-display tracking-widest uppercase text-accent mb-6">Our Mission</h2>
-
-              <blockquote className="text-2xl md:text-3xl lg:text-4xl font-display font-medium leading-tight text-foreground text-center">
-                "Family Adventures Northwest empowers immigrant families through meaningful, multi-generational outdoor and experiential learning activities, fostering character education, servant leadership, and connection with local communities. In collaboration with intersectional partners, we create culturally inclusive programs that nurture the physical, relational, emotional, and spiritual needs of every family."
-              </blockquote>
-            </motion.div>
-          </div>
+          <motion.div variants={fadeUp} className="flex flex-col gap-4 md:gap-6">
+            {/* Row 1: 2 large photos */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+              {galleryImages.slice(0, 2).map((img, i) => (
+                <motion.div
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: i * 0.1 } }
+                  }}
+                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group"
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.div>
+              ))}
+            </div>
+            {/* Row 2: 3 photos */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+              {galleryImages.slice(2, 5).map((img, i) => (
+                <motion.div
+                  key={i + 2}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: (i + 2) * 0.1 } }
+                  }}
+                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group"
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.div>
+              ))}
+            </div>
+            {/* Row 3: 3 new photos */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+              {galleryImages.slice(5).map((img, i) => (
+                <motion.div
+                  key={i + 5}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: (i + 5) * 0.1 } }
+                  }}
+                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group"
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
       </section>
 
       {/* PROGRAMS OVERVIEW */}
-      <section className="relative z-10 py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-muted/20">
+      <section className="relative z-10 py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-background">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -179,65 +234,6 @@ export default function Home() {
               View All Programs
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* PHOTO GALLERY */}
-      <section className="relative z-10 py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-background">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
-          className="max-w-6xl mx-auto"
-        >
-          <motion.div variants={fadeUp} className="text-center mb-14">
-            <h2 className="text-sm font-bold font-display tracking-widest uppercase text-accent mb-4">Adventures Await</h2>
-            <p className="text-3xl md:text-4xl font-display font-bold text-foreground">
-              Life is better outdoors, together.
-            </p>
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="flex flex-col gap-4 md:gap-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-              {galleryImages.slice(0, 2).map((img, i) => (
-                <motion.div
-                  key={i}
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: i * 0.1 } }
-                  }}
-                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group"
-                >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.div>
-              ))}
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-              {galleryImages.slice(2).map((img, i) => (
-                <motion.div
-                  key={i + 2}
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: (i + 2) * 0.1 } }
-                  }}
-                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group"
-                >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.div>
-              ))}
-            </div>
           </motion.div>
         </motion.div>
       </section>
