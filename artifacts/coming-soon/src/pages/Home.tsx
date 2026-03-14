@@ -1,19 +1,102 @@
 import { motion } from "framer-motion";
-import { Mountain, Mail, Trees, Compass, ArrowRight, MapPin, Backpack, Users } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Mountain, Mail, Trees, Compass, ArrowRight, MapPin, Backpack, Users, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Home() {
   const heroImageUrl = `${import.meta.env.BASE_URL}images/photo-mountain.jpg`;
   const galleryImages = [
-    { src: `${import.meta.env.BASE_URL}images/photo-jingoo.jpg`, alt: "A child hanging fearlessly over a creek on a rope traverse" },
-    { src: `${import.meta.env.BASE_URL}images/photo-sean.jpg`, alt: "A child swinging over a creek with family cheering from the bank" },
-    { src: `${import.meta.env.BASE_URL}images/photo-lake.jpg`, alt: "Stunning alpine lake with driftwood and mountain cliffs in Washington" },
-    { src: `${import.meta.env.BASE_URL}images/photo-mountain.jpg`, alt: "Hiker on a rocky ridge with dramatic Pacific Northwest mountain peaks" },
-    { src: `${import.meta.env.BASE_URL}images/photo-sunset.jpg`, alt: "Serene sunset reflection of evergreens on a calm alpine lake" },
-    { src: `${import.meta.env.BASE_URL}images/photo-rope-climb.jpg`, alt: "A child joyfully climbing a rope in a Pacific Northwest forest" },
-    { src: `${import.meta.env.BASE_URL}images/photo-tree-planting-1.jpg`, alt: "A father and two children planting a young tree together in the forest" },
-    { src: `${import.meta.env.BASE_URL}images/photo-tree-planting-2.jpg`, alt: "A family of five volunteers smiling while planting a tree outdoors" },
+    {
+      src: `${import.meta.env.BASE_URL}images/photo-jingoo.jpg`,
+      alt: "A child hanging fearlessly over a creek on a rope traverse",
+      pos: "50% 30%",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}images/photo-sean.jpg`,
+      alt: "A child swinging over a creek with family cheering from the bank",
+      pos: "50% 35%",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}images/photo-lake.jpg`,
+      alt: "Stunning alpine lake with driftwood and mountain cliffs in Washington",
+      pos: "center",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}images/photo-mountain.jpg`,
+      alt: "Hiker on a rocky ridge with dramatic Pacific Northwest mountain peaks",
+      pos: "50% 65%",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}images/photo-sunset.jpg`,
+      alt: "Serene sunset reflection of evergreens on a calm alpine lake",
+      pos: "center",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}images/photo-rope-climb.jpg`,
+      alt: "A child joyfully climbing a rope in a Pacific Northwest forest",
+      pos: "50% 80%",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}images/photo-tree-planting-1.jpg`,
+      alt: "A father and two children planting a young tree together in the forest",
+      pos: "50% 25%",
+    },
+    {
+      src: `${import.meta.env.BASE_URL}images/photo-tree-planting-2.jpg`,
+      alt: "A family of five volunteers smiling while planting a tree outdoors",
+      pos: "50% 20%",
+    },
   ];
+
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const lightboxRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  const openLightbox = (i: number) => setLightboxIndex(i);
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+  const prevPhoto = useCallback(() =>
+    setLightboxIndex((i) => (i === null ? null : (i - 1 + galleryImages.length) % galleryImages.length)),
+    [galleryImages.length]
+  );
+  const nextPhoto = useCallback(() =>
+    setLightboxIndex((i) => (i === null ? null : (i + 1) % galleryImages.length)),
+    [galleryImages.length]
+  );
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") { e.preventDefault(); prevPhoto(); }
+      if (e.key === "ArrowRight") { e.preventDefault(); nextPhoto(); }
+      if (e.key === "Escape") closeLightbox();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [lightboxIndex, prevPhoto, nextPhoto, closeLightbox]);
+
+  useEffect(() => {
+    if (lightboxIndex !== null) {
+      document.body.style.overflow = "hidden";
+      setTimeout(() => closeButtonRef.current?.focus(), 50);
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [lightboxIndex]);
+
+  const handleFocusTrap = (e: React.KeyboardEvent) => {
+    if (e.key !== "Tab" || lightboxRef.current === null) return;
+    const focusable = Array.from(
+      lightboxRef.current.querySelectorAll<HTMLElement>("button")
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  };
 
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -27,6 +110,29 @@ export default function Home() {
       transition: { staggerChildren: 0.2, delayChildren: 0.1 }
     }
   };
+
+  const GalleryCard = ({ img, index }: { img: typeof galleryImages[0]; index: number }) => (
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: index * 0.08 } }
+      }}
+      className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group cursor-pointer"
+      onClick={() => openLightbox(index)}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(index); } }}
+      tabIndex={0}
+      role="button"
+      aria-label={`View photo: ${img.alt}`}
+    >
+      <img
+        src={img.src}
+        alt={img.alt}
+        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        style={{ objectPosition: img.pos }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    </motion.div>
+  );
 
   return (
     <div className="min-h-screen flex flex-col w-full overflow-hidden bg-background">
@@ -107,61 +213,19 @@ export default function Home() {
             {/* Row 1: 2 large photos */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               {galleryImages.slice(0, 2).map((img, i) => (
-                <motion.div
-                  key={i}
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: i * 0.1 } }
-                  }}
-                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group"
-                >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.div>
+                <GalleryCard key={i} img={img} index={i} />
               ))}
             </div>
             {/* Row 2: 3 photos */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {galleryImages.slice(2, 5).map((img, i) => (
-                <motion.div
-                  key={i + 2}
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: (i + 2) * 0.1 } }
-                  }}
-                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group"
-                >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.div>
+                <GalleryCard key={i + 2} img={img} index={i + 2} />
               ))}
             </div>
-            {/* Row 3: 3 new photos */}
+            {/* Row 3: 3 photos */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {galleryImages.slice(5).map((img, i) => (
-                <motion.div
-                  key={i + 5}
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: (i + 5) * 0.1 } }
-                  }}
-                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group"
-                >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.div>
+                <GalleryCard key={i + 5} img={img} index={i + 5} />
               ))}
             </div>
           </motion.div>
@@ -183,7 +247,6 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {/* Program Area 1 */}
             <motion.div
               variants={fadeUp}
               className="bg-card rounded-3xl p-8 md:p-10 border border-border/50 shadow-sm overflow-hidden relative"
@@ -208,7 +271,6 @@ export default function Home() {
               </ul>
             </motion.div>
 
-            {/* Program Area 2 */}
             <motion.div
               variants={fadeUp}
               className="bg-card rounded-3xl p-8 md:p-10 border border-border/50 shadow-sm overflow-hidden relative"
@@ -297,6 +359,61 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* LIGHTBOX */}
+      {lightboxIndex !== null && (
+        <div
+          ref={lightboxRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Photo lightbox"
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90"
+          onClick={closeLightbox}
+          onKeyDown={handleFocusTrap}
+        >
+          {/* Close button */}
+          <button
+            ref={closeButtonRef}
+            onClick={closeLightbox}
+            aria-label="Close lightbox"
+            className="absolute top-4 right-4 z-10 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white/60"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {/* Prev arrow */}
+          <button
+            onClick={(e) => { e.stopPropagation(); prevPhoto(); }}
+            aria-label="Previous photo"
+            className="absolute left-3 md:left-6 z-10 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white/60"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+
+          {/* Photo */}
+          <img
+            src={galleryImages[lightboxIndex].src}
+            alt={galleryImages[lightboxIndex].alt}
+            className="max-h-[88vh] max-w-[88vw] object-contain rounded-lg shadow-2xl select-none"
+            onClick={(e) => e.stopPropagation()}
+            draggable={false}
+          />
+
+          {/* Next arrow */}
+          <button
+            onClick={(e) => { e.stopPropagation(); nextPhoto(); }}
+            aria-label="Next photo"
+            className="absolute right-3 md:right-6 z-10 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white/60"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
+          {/* Counter */}
+          <p className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/60 text-sm font-sans select-none">
+            {lightboxIndex + 1} / {galleryImages.length}
+          </p>
+        </div>
+      )}
 
     </div>
   );
