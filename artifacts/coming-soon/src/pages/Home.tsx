@@ -111,28 +111,6 @@ export default function Home() {
     }
   };
 
-  const GalleryCard = ({ img, index }: { img: typeof galleryImages[0]; index: number }) => (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: index * 0.08 } }
-      }}
-      className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group cursor-pointer"
-      onClick={() => openLightbox(index)}
-      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(index); } }}
-      tabIndex={0}
-      role="button"
-      aria-label={`View photo: ${img.alt}`}
-    >
-      <img
-        src={img.src}
-        alt={img.alt}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        style={{ objectPosition: img.pos }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-    </motion.div>
-  );
 
   return (
     <div className="min-h-screen flex flex-col w-full overflow-hidden bg-background">
@@ -213,19 +191,79 @@ export default function Home() {
             {/* Row 1: 2 large photos */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               {galleryImages.slice(0, 2).map((img, i) => (
-                <GalleryCard key={i} img={img} index={i} />
+                <motion.div
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: i * 0.08 } }
+                  }}
+                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group cursor-pointer"
+                  onClick={() => openLightbox(i)}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(i); } }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`View photo: ${img.alt}`}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    style={{ objectPosition: img.pos }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.div>
               ))}
             </div>
             {/* Row 2: 3 photos */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {galleryImages.slice(2, 5).map((img, i) => (
-                <GalleryCard key={i + 2} img={img} index={i + 2} />
+                <motion.div
+                  key={i + 2}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: (i + 2) * 0.08 } }
+                  }}
+                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group cursor-pointer"
+                  onClick={() => openLightbox(i + 2)}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(i + 2); } }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`View photo: ${img.alt}`}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    style={{ objectPosition: img.pos }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.div>
               ))}
             </div>
             {/* Row 3: 3 photos */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {galleryImages.slice(5).map((img, i) => (
-                <GalleryCard key={i + 5} img={img} index={i + 5} />
+                <motion.div
+                  key={i + 5}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: (i + 5) * 0.08 } }
+                  }}
+                  className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50 shadow-md group cursor-pointer"
+                  onClick={() => openLightbox(i + 5)}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(i + 5); } }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`View photo: ${img.alt}`}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    style={{ objectPosition: img.pos }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.div>
               ))}
             </div>
           </motion.div>
