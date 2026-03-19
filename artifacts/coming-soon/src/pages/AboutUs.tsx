@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 import { HeartHandshake, UserRound } from "lucide-react";
 
 const boardMembers = [
-  { name: "Board Member Name", title: "Board Member Title" },
-  { name: "Board Member Name", title: "Board Member Title" },
-  { name: "Board Member Name", title: "Board Member Title" },
-  { name: "Board Member Name", title: "Board Member Title" },
-  { name: "Board Member Name", title: "Board Member Title" },
-  { name: "Board Member Name", title: "Board Member Title" },
+  { name: "Kenshu Aoki", title: "Board Member Title" },
+  { name: "Yoshitaka Goto", title: "Board Member Title" },
+  { name: "Yoo Shin Tanai", title: "Board Member Title" },
+  { name: "Jacob Bates", title: "Board Member Title" },
+  { name: "Risa Perea", title: "Board Member Title" },
+  { name: "Ian MacMurdie", title: "Board Member Title" },
 ];
 
 const fadeUp = {
