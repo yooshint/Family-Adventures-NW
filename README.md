@@ -1,1 +1,1 @@
-deployed at [https://familyadventuresnw.netlify.app/](https://familyadventuresnw.netlify.app/)
+deployed at [https://family-adventures-nw.pages.dev]
